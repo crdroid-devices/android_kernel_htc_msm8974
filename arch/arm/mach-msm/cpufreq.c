@@ -134,12 +134,6 @@ static int set_cpu_freq(struct cpufreq_policy *policy, unsigned int new_freq,
 	struct cpufreq_freqs freqs;
 	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
 
-	if (policy->cpu >= 1 && is_sync)
-		return 0;
-
-#ifdef CONFIG_ARCH_MSM8974
-	mutex_lock(&set_cpufreq_lock);
-#endif
 	struct cpu_freq *limit = &per_cpu(cpu_freq_info, policy->cpu);
 
 	if (limit->limits_init) {
